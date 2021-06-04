@@ -43,6 +43,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
   static final _buttonKey = GlobalKey();
   static final _textKey = GlobalKey();
+  static final _text1Key = GlobalKey();
+  static final _text2Key = GlobalKey();
+
   int _counter = 0;
   late AnimationController _animationController;
   late Animation<double> _opacityAnimation;
@@ -77,6 +80,14 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
           ExampleTutorialEntry(
             [getBasicRRect(_textKey)],
             'Counter will be increased here',
+            Alignment.bottomCenter,
+          ),
+          ExampleTutorialEntry(
+            [
+              getBasicRRect(_text1Key),
+              getBasicRRect(_text2Key),
+            ],
+            'Highlights 2 texts',
             Alignment.bottomCenter,
           ),
         ];
@@ -136,20 +147,38 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       ),
       body: Center(
         child: Column(
-          key: _textKey,
           mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            const SizedBox(
-              width: double.infinity,
-              child: Text(
-                'You have pushed the button this many times:',
-                textAlign: TextAlign.center,
-              ),
+          children: [
+            Column(
+              key: _textKey,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    'You have pushed the button this many times:',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Text(
+                  '$_counter',
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  'Text 1',
+                  key: _text1Key,
+                ),
+                Text(
+                  'Text 2',
+                  key: _text2Key,
+                ),
+              ],
             ),
           ],
         ),
