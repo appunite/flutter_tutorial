@@ -4,7 +4,7 @@ Provides a Tutorial API to displat tutorial overlay and highlights certain items
 
 ## Counter example
 
-<https://share.getcloudapp.com/NQuoezLd>
+![example](assets/example.gif)
 
 1. Create global keys and pass them to widgets you want to highlight.
 
@@ -92,7 +92,7 @@ Tutorial().show<ExampleTutorialEntry>(
 
 You can provide more than 1 widget to highlight and it'll still animate without any issues.
 
-<https://share.getcloudapp.com/Kou4QLxA>
+![2 items](assets/2_items.gif)
 
 ### OnPressedBehavior
 
@@ -109,3 +109,7 @@ You can use next and previous methods in dialogBuilder to add cutom buttons that
 ### prepareNext
 
 Place to define any animations before moving to next slide. (useful when using OnPressedBehavior.next).
+
+### Creating bigger highlights than widgets
+
+TODO:
