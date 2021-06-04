@@ -29,7 +29,6 @@ class TutorialWidget<T extends TutorialEntry> extends StatefulWidget {
     required this.dialogBuilder,
     this.backgroundColor = Colors.black,
     this.backgroundMaxOpacity = 0.5,
-    this.indexController,
     this.opacityAnimationController,
     this.highlightAnimationController,
     this.opacityAnimation,
@@ -43,7 +42,6 @@ class TutorialWidget<T extends TutorialEntry> extends StatefulWidget {
   final DialogBuilder dialogBuilder;
   final Color backgroundColor;
   final double backgroundMaxOpacity;
-  final ValueNotifier<int>? indexController;
   final AnimationController? opacityAnimationController;
   final AnimationController? highlightAnimationController;
   final Animation<double>? opacityAnimation;
@@ -73,7 +71,7 @@ class TutorialWidgetState extends State<TutorialWidget> with TickerProviderState
   }
 
   void _initControllers() {
-    _indexController = widget.indexController ?? ValueNotifier<int>(0);
+    _indexController = ValueNotifier<int>(0);
     _opacityController = widget.opacityAnimationController ??
         AnimationController(
           duration: const Duration(milliseconds: 500),
