@@ -122,4 +122,15 @@ RRect.fromRectAndCorners(
 );
 ```
 
-![Inflated highlight item](assets/inflated_highlight_item.gif)
+![Inflated highlight item](assets/inflated_highlight_item.png)
+
+### Changing overlay background color and opacity
+
+Background color and it's opacity can be easily adjusted to your needs.
+
+```dart
+    backgroundColor: Colors.blue,
+    backgroundMaxOpacity: 0.8,
+```
+
+![Changed background color and opacity](assets/change_opacity_color.png)

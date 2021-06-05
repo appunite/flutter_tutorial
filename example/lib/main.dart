@@ -97,6 +97,8 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
           context,
           children: tutorialEntries,
           onPressedBehavior: OnPressedBehavior.next,
+          backgroundColor: Colors.blue,
+          backgroundMaxOpacity: 0.8,
           prepareNext: () async {
             await _animationController.reverse();
             _animationController.forward();
