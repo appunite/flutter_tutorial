@@ -85,7 +85,9 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
           ExampleTutorialEntry(
             [
               getBasicRRect(_text1Key),
-              getBasicRRect(_text2Key),
+              RRect.fromRectAndCorners(
+                getBasicRect(_text2Key).inflate(10),
+              ),
             ],
             'Highlights 2 texts',
             Alignment.bottomCenter,

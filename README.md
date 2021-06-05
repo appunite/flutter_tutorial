@@ -23,6 +23,8 @@ Provides a Tutorial API to displat tutorial overlay and highlights certain items
 
 2. Create tutorial entries
 
+Use `getBasicRect` or `getBasicRRect` methods to get the area to highlight from the key.
+
 ```dart
 final tutorialEntries = [
     ExampleTutorialEntry(
@@ -112,4 +114,12 @@ Place to define any animations before moving to next slide. (useful when using O
 
 ### Creating bigger highlights than widgets
 
-TODO:
+You can inflate Rect or RRect class to make the highlight area bigger, or deflate them to be smaller if needed without changing the layout of your widgets.
+
+```dart
+RRect.fromRectAndCorners(
+    getBasicRect(_text2Key).inflate(10),
+);
+```
+
+![Inflated highlight item](assets/inflated_highlight_item.gif)
