@@ -122,4 +122,4 @@ RRect.fromRectAndCorners(
 );
 ```
 
-![Inflated highlight item](assets/inflated_highlight_item.gif)
+![Inflated highlight item](assets/inflated_highlight_item.png)
