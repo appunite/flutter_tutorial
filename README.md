@@ -1,10 +1,10 @@
 # flutter_tutorial
 
-Provides a Tutorial API to displat tutorial overlay and highlights certain items.
+Provides a Tutorial API to display tutorial overlay and highlights certain items.
 
 ## Counter example
 
-![example](assets/example.gif)
+![example](assets/example.mov)
 
 1. Create global keys and pass them to widgets you want to highlight.
 
@@ -94,11 +94,9 @@ Tutorial().show<ExampleTutorialEntry>(
 
 You can provide more than 1 widget to highlight and it'll still animate without any issues.
 
-![2 items](assets/2_items.gif)
-
 ### OnPressedBehavior
 
-OnPressedBehavior specifies what action should be taken when pressed outside of the dialog: 
+OnPressedBehavior specifies what action should be taken when pressed outside of the dialog:
 
 - close
 - next
