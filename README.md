@@ -4,7 +4,7 @@ Provides a Tutorial API to display tutorial overlay and highlights certain items
 
 ## Counter example
 
-https://vimeo.com/560306626
+https://player.vimeo.com/video/560306626
 
 1. Create global keys and pass them to widgets you want to highlight.
 
