@@ -4,7 +4,7 @@ Provides a Tutorial API to display tutorial overlay and highlights certain items
 
 ## Counter example
 
-https://streamable.com/4ngfjs
+https://vimeo.com/560306626
 
 1. Create global keys and pass them to widgets you want to highlight.
 
