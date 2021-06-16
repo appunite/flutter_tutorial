@@ -120,7 +120,7 @@ RRect.fromRectAndCorners(
 );
 ```
 
-![Inflated highlight item](assets/inflated_highlight_item.png)
+<a href="https://ibb.co/HVz3DYX"><img src="https://i.ibb.co/wRWjNCY/inflated-highlight-image.png" alt="inflated-highlight-image" border="0" width="300"></a>
 
 ### Changing overlay background color and opacity
 
@@ -131,4 +131,4 @@ Background color and it's opacity can be easily adjusted to your needs.
     backgroundMaxOpacity: 0.8,
 ```
 
-![Changed background color and opacity](assets/change_opacity_color.png)
+<a href="https://ibb.co/QFVjYh3"><img src="https://i.ibb.co/WWXpB74/change-opacity-color.png" alt="change-opacity-color" border="0" width="300"></a>
