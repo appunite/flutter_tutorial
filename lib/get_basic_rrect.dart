@@ -5,4 +5,5 @@ Rect getBasicRect(GlobalKey key) {
   return target.localToGlobal(Offset.zero) & target.size;
 }
 
-RRect getBasicRRect(GlobalKey key) => RRect.fromRectAndRadius(getBasicRect(key), Radius.zero);
+RRect getBasicRRect(GlobalKey key) =>
+    RRect.fromRectAndRadius(getBasicRect(key), Radius.zero);

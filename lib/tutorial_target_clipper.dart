@@ -11,9 +11,11 @@ class TutorialTargetClipper extends CustomClipper<Path> {
     for (int i = 0; i < rrectList.length; i++) {
       path.addRRect(rrectList[i]);
     }
-    return Path.combine(PathOperation.difference, Path()..addRect(Offset.zero & size), path);
+    return Path.combine(
+        PathOperation.difference, Path()..addRect(Offset.zero & size), path);
   }
 
   @override
-  bool shouldReclip(TutorialTargetClipper oldClipper) => rrectList != oldClipper.rrectList;
+  bool shouldReclip(TutorialTargetClipper oldClipper) =>
+      rrectList != oldClipper.rrectList;
 }
