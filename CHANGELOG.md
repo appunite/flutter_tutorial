@@ -1,6 +1,6 @@
-## 0.0.2
+## 0.0.3
 
-format code according to dartfmt
+Format code according to dartfmt
 
 ## 0.0.2
 
