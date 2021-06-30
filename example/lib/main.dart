@@ -96,7 +96,7 @@ class _PreviewPageState extends State<PreviewPage> {
           ],
           backgroundColor: Theme.of(context).primaryColor,
           backgroundMaxOpacity: 0.9,
-          onPressedBehavior: OnPressedBehaviour.none,
+          onPressedBehavior: OnPressedBehavior.none,
           dialogBuilder: (context, index, next, __) {
             final value = tutorialValues[index];
 
@@ -143,7 +143,7 @@ class _PreviewPageState extends State<PreviewPage> {
                 ],
                 backgroundColor: Theme.of(context).primaryColor,
                 backgroundMaxOpacity: 0.9,
-                onPressedBehavior: OnPressedBehaviour.none,
+                onPressedBehavior: OnPressedBehavior.none,
                 dialogBuilder: (context, index, next, __) {
                   final value = tutorialValues[index];
 

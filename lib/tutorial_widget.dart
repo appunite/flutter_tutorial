@@ -10,7 +10,7 @@ typedef DialogBuilder = Widget Function(
   VoidCallback previous,
 );
 
-enum OnPressedBehaviour {
+enum OnPressedBehavior {
   /// When pressed outside the dialog widget tutorial will terminate
   close,
 
@@ -33,7 +33,7 @@ class TutorialWidget<T extends TutorialEntry> extends StatefulWidget {
     this.highlightAnimationController,
     this.opacityAnimation,
     this.highlightAnimation,
-    this.onPressedBehavior = OnPressedBehaviour.next,
+    this.onPressedBehavior = OnPressedBehavior.next,
     this.prepareNext,
   }) : super(key: key);
 
@@ -46,7 +46,7 @@ class TutorialWidget<T extends TutorialEntry> extends StatefulWidget {
   final AnimationController? highlightAnimationController;
   final Animation<double>? opacityAnimation;
   final Animation<double>? highlightAnimation;
-  final OnPressedBehaviour onPressedBehavior;
+  final OnPressedBehavior onPressedBehavior;
   final Future<void> Function()? prepareNext;
 
   @override
@@ -236,10 +236,10 @@ class TutorialWidgetState extends State<TutorialWidget>
 
   Future<void> _onPointer(PointerEvent event) async {
     switch (widget.onPressedBehavior) {
-      case OnPressedBehaviour.close:
+      case OnPressedBehavior.close:
         widget.close();
         break;
-      case OnPressedBehaviour.next:
+      case OnPressedBehavior.next:
         if (!event.down) {
           if (widget.prepareNext != null) {
             await widget.prepareNext!();

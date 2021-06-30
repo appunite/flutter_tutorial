@@ -17,11 +17,11 @@ class Tutorial {
     AnimationController? highlightAnimationController,
     Animation<double>? opacityAnimation,
     Animation<double>? highlightAnimation,
-    OnPressedBehaviour onPressedBehavior = OnPressedBehaviour.next,
+    OnPressedBehavior onPressedBehavior = OnPressedBehavior.next,
 
     /// Place to wait for any animations between tutorial items to finish.
     ///
-    /// Works only with [onPressedBehaviour] set to [OnPressedBehaviour.next].
+    /// Works only with [onPressedBehaviour] set to [OnPressedBehavior.next].
     /// Called before firing next event on tap.
     Future<void> Function()? prepareNext,
   }) {

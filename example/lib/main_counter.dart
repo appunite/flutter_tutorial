@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage>
         Tutorial().show<ExampleTutorialEntry>(
           context,
           children: tutorialEntries,
-          onPressedBehavior: OnPressedBehaviour.next,
+          onPressedBehavior: OnPressedBehavior.next,
           backgroundColor: Colors.blue,
           backgroundMaxOpacity: 0.8,
           prepareNext: () async {
