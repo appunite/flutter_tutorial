@@ -10,7 +10,7 @@ typedef DialogBuilder = Widget Function(
   VoidCallback previous,
 );
 
-enum OnPressedBehavior {
+enum OnPressedBehaviour {
   /// When pressed outside the dialog widget tutorial will terminate
   close,
 
@@ -26,34 +26,35 @@ class TutorialWidget<T extends TutorialEntry> extends StatefulWidget {
     Key? key,
     required this.children,
     required this.close,
-    required this.dialogBuilder,
+    this.dialogBuilder,
     this.backgroundColor = Colors.black,
     this.backgroundMaxOpacity = 0.5,
     this.opacityAnimationController,
     this.highlightAnimationController,
     this.opacityAnimation,
     this.highlightAnimation,
-    this.onPressedBehavior = OnPressedBehavior.none,
+    this.onPressedBehavior = OnPressedBehaviour.next,
     this.prepareNext,
   }) : super(key: key);
 
   final List<T> children;
   final VoidCallback close;
-  final DialogBuilder dialogBuilder;
+  final DialogBuilder? dialogBuilder;
   final Color backgroundColor;
   final double backgroundMaxOpacity;
   final AnimationController? opacityAnimationController;
   final AnimationController? highlightAnimationController;
   final Animation<double>? opacityAnimation;
   final Animation<double>? highlightAnimation;
-  final OnPressedBehavior onPressedBehavior;
+  final OnPressedBehaviour onPressedBehavior;
   final Future<void> Function()? prepareNext;
 
   @override
   State<StatefulWidget> createState() => TutorialWidgetState();
 }
 
-class TutorialWidgetState extends State<TutorialWidget> with TickerProviderStateMixin {
+class TutorialWidgetState extends State<TutorialWidget>
+    with TickerProviderStateMixin {
   late ValueNotifier<int> _indexController;
   late AnimationController _opacityController;
   late Animation<double> _opacityAnimation;
@@ -107,7 +108,8 @@ class TutorialWidgetState extends State<TutorialWidget> with TickerProviderState
         );
     final children = widget.children;
     final rrectList = children[index].rrectList;
-    final newRRectList = children[index + 1].rrectList;
+    final newRRectList =
+        children[children.length > 1 ? index + 1 : index].rrectList;
     for (int i = 0; i < rrectList.length; i++) {}
     if (children.length - 1 == index)
       return rrectList
@@ -161,7 +163,9 @@ class TutorialWidgetState extends State<TutorialWidget> with TickerProviderState
                 builder: (context, child) {
                   return ClipPath(
                     clipper: TutorialTargetClipper(
-                      _highlightAnimations.map((animation) => animation.value).toList(),
+                      _highlightAnimations
+                          .map((animation) => animation.value)
+                          .toList(),
                     ),
                     child: child,
                   );
@@ -183,13 +187,19 @@ class TutorialWidgetState extends State<TutorialWidget> with TickerProviderState
       child: ValueListenableBuilder<int>(
         valueListenable: _indexController,
         builder: (context, value, child) {
-          return widget.dialogBuilder(
-            context,
-            value,
-            _nextIndex,
-            _previousIndex,
-          );
+          final dialogBuilder = widget.dialogBuilder;
+          if (dialogBuilder != null) {
+            return dialogBuilder(
+              context,
+              value,
+              _nextIndex,
+              _previousIndex,
+            );
+          } else {
+            return child!;
+          }
         },
+        child: const SizedBox.shrink(),
       ),
     );
   }
@@ -206,7 +216,8 @@ class TutorialWidgetState extends State<TutorialWidget> with TickerProviderState
       widget.close();
     } else {
       _indexController.value++;
-      _highlightAnimations = _getCurrentHighlightAnimation(_indexController.value - 1);
+      _highlightAnimations =
+          _getCurrentHighlightAnimation(_indexController.value - 1);
       _highlightController.reset();
       _highlightController.forward();
     }
@@ -217,17 +228,18 @@ class TutorialWidgetState extends State<TutorialWidget> with TickerProviderState
     if (_highlightController.isAnimating || _highlightController.isCompleted) {
       _highlightController.reverse();
     } else {
-      _highlightAnimations = _getCurrentHighlightAnimation(_indexController.value);
+      _highlightAnimations =
+          _getCurrentHighlightAnimation(_indexController.value);
       _highlightController.reverse(from: 1);
     }
   }
 
   Future<void> _onPointer(PointerEvent event) async {
     switch (widget.onPressedBehavior) {
-      case OnPressedBehavior.close:
+      case OnPressedBehaviour.close:
         widget.close();
         break;
-      case OnPressedBehavior.next:
+      case OnPressedBehaviour.next:
         if (!event.down) {
           if (widget.prepareNext != null) {
             await widget.prepareNext!();

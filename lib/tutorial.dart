@@ -10,14 +10,19 @@ class Tutorial {
     BuildContext context, {
     GlobalKey<TutorialWidgetState>? key,
     required List<T> children,
-    required DialogBuilder dialogBuilder,
+    DialogBuilder? dialogBuilder,
     Color backgroundColor = Colors.black,
     double backgroundMaxOpacity = 0.5,
     AnimationController? opacityAnimationController,
     AnimationController? highlightAnimationController,
     Animation<double>? opacityAnimation,
     Animation<double>? highlightAnimation,
-    OnPressedBehavior onPressedBehavior = OnPressedBehavior.none,
+    OnPressedBehaviour onPressedBehavior = OnPressedBehaviour.next,
+
+    /// Place to wait for any animations between tutorial items to finish.
+    ///
+    /// Works only with [onPressedBehaviour] set to [OnPressedBehaviour.next].
+    /// Called before firing next event on tap.
     Future<void> Function()? prepareNext,
   }) {
     if (!_isVisible) {
