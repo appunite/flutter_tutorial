@@ -113,7 +113,9 @@ class StyleButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(6),
           color: isSelected ? Colors.white : const Color(0xFFf3f3f3),
           border: Border.all(
-            color: isSelected ? Theme.of(context).accentColor : const Color(0xFFf3f3f3),
+            color: isSelected
+                ? Theme.of(context).accentColor
+                : const Color(0xFFf3f3f3),
             width: 2,
           ),
         ),

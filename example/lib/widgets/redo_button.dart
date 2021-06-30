@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RedoButton extends StatelessWidget {
-  const RedoButton();
+  const RedoButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

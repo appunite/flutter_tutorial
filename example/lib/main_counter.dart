@@ -40,7 +40,8 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage>
+    with SingleTickerProviderStateMixin {
   static final _buttonKey = GlobalKey();
   static final _textKey = GlobalKey();
   static final _text1Key = GlobalKey();
@@ -96,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
         Tutorial().show<ExampleTutorialEntry>(
           context,
           children: tutorialEntries,
-          onPressedBehavior: OnPressedBehavior.next,
+          onPressedBehavior: OnPressedBehaviour.next,
           backgroundColor: Colors.blue,
           backgroundMaxOpacity: 0.8,
           prepareNext: () async {

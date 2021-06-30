@@ -10,57 +10,60 @@ class SelectFontWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 40,
-          child: PageView(
-            controller: PageController(
-              initialPage: 1,
-              viewportFraction: 0.8,
-            ),
-            children: const [
-              Text(
-                'Comic Sans',
-                textAlign: TextAlign.right,
-                style: _sideFontStyle,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 40,
+            child: PageView(
+              controller: PageController(
+                initialPage: 1,
+                viewportFraction: 0.8,
               ),
-              Text(
-                'SF Pro Display',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
+              children: const [
+                Text(
+                  'Comic Sans',
+                  textAlign: TextAlign.right,
+                  style: _sideFontStyle,
                 ),
-                textAlign: TextAlign.center,
+                Text(
+                  'SF Pro Display',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  'Roboto',
+                  style: _sideFontStyle,
+                ),
+              ],
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Dot(),
+              Container(
+                width: 6,
+                height: 6,
+                margin: const EdgeInsets.symmetric(horizontal: 2),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).accentColor,
+                  borderRadius: BorderRadius.circular(6),
+                ),
               ),
-              Text(
-                'Roboto',
-                style: _sideFontStyle,
-              ),
+              const Dot(),
+              const Dot(),
+              const Dot(),
+              const Dot(),
+              const Dot(),
             ],
           ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Dot(),
-            Container(
-              width: 6,
-              height: 6,
-              margin: const EdgeInsets.symmetric(horizontal: 2),
-              decoration: BoxDecoration(
-                color: Theme.of(context).accentColor,
-                borderRadius: BorderRadius.circular(6),
-              ),
-            ),
-            const Dot(),
-            const Dot(),
-            const Dot(),
-            const Dot(),
-            const Dot(),
-          ],
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
