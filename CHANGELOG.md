@@ -1,6 +1,6 @@
 # 0.1.0
 
-* add additional constructors for tutorial entry: single, fromKey, fromKeys
+* add factory constructors for tutorial entry: single, fromKey, fromKeys
 * add text styling app tutorial example
 
 # 0.0.3
