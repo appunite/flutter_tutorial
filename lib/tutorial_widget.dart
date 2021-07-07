@@ -26,20 +26,20 @@ class TutorialWidget<T extends TutorialEntry> extends StatefulWidget {
     Key? key,
     required this.children,
     required this.close,
-    required this.dialogBuilder,
+    this.dialogBuilder,
     this.backgroundColor = Colors.black,
     this.backgroundMaxOpacity = 0.5,
     this.opacityAnimationController,
     this.highlightAnimationController,
     this.opacityAnimation,
     this.highlightAnimation,
-    this.onPressedBehavior = OnPressedBehavior.none,
+    this.onPressedBehavior = OnPressedBehavior.next,
     this.prepareNext,
   }) : super(key: key);
 
   final List<T> children;
   final VoidCallback close;
-  final DialogBuilder dialogBuilder;
+  final DialogBuilder? dialogBuilder;
   final Color backgroundColor;
   final double backgroundMaxOpacity;
   final AnimationController? opacityAnimationController;
@@ -108,7 +108,8 @@ class TutorialWidgetState extends State<TutorialWidget>
         );
     final children = widget.children;
     final rrectList = children[index].rrectList;
-    final newRRectList = children[index + 1].rrectList;
+    final newRRectList =
+        children[children.length > 1 ? index + 1 : index].rrectList;
     for (int i = 0; i < rrectList.length; i++) {}
     if (children.length - 1 == index)
       return rrectList
@@ -186,13 +187,19 @@ class TutorialWidgetState extends State<TutorialWidget>
       child: ValueListenableBuilder<int>(
         valueListenable: _indexController,
         builder: (context, value, child) {
-          return widget.dialogBuilder(
-            context,
-            value,
-            _nextIndex,
-            _previousIndex,
-          );
+          final dialogBuilder = widget.dialogBuilder;
+          if (dialogBuilder != null) {
+            return dialogBuilder(
+              context,
+              value,
+              _nextIndex,
+              _previousIndex,
+            );
+          } else {
+            return child!;
+          }
         },
+        child: const SizedBox.shrink(),
       ),
     );
   }

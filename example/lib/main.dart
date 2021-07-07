@@ -1,18 +1,55 @@
+import 'package:example/main_theme.dart';
+import 'package:example/widgets/done_button.dart';
+import 'package:example/widgets/font_style_card.dart';
+import 'package:example/widgets/redo_button.dart';
+import 'package:example/widgets/select_font_widget.dart';
+import 'package:example/widgets/text_to_style.dart';
+import 'package:example/widgets/undo_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_tutorial/flutter_tutorial.dart';
 import 'package:flutter_tutorial/tutorial_widget.dart';
 
-class ExampleTutorialEntry extends TutorialEntry {
-  ExampleTutorialEntry(
-    List<RRect> rrectList,
-    this.text,
-    this.alignment,
-  ) : super(rrectList);
+final _fontSelectKey = GlobalKey();
+final _textKey = GlobalKey();
+final _undoKey = GlobalKey();
+final _redoKey = GlobalKey();
+
+const _padding = EdgeInsets.symmetric(
+  horizontal: 32,
+  vertical: 12,
+);
+const _textStyle = TextStyle(
+  fontSize: 32,
+  color: Colors.white,
+  fontWeight: FontWeight.w600,
+  decoration: TextDecoration.none,
+);
+
+class TutorialEntryValue {
+  const TutorialEntryValue({
+    required this.text,
+    required this.alignment,
+  });
 
   final String text;
   final Alignment alignment;
 }
+
+const tutorialValues = [
+  TutorialEntryValue(
+    text: 'Swipe left and right to change font',
+    alignment: Alignment.center,
+  ),
+  TutorialEntryValue(
+    text: 'Tap text to edit',
+    alignment: Alignment(0.0, 0.5),
+  ),
+  TutorialEntryValue(
+    text: 'Undo and redo your changes',
+    alignment: Alignment(0.0, -0.7),
+  ),
+];
 
 void main() {
   runApp(MyApp());
@@ -22,38 +59,146 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
+      theme: mainTheme,
+      home: const PreviewPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+class PreviewPage extends StatefulWidget {
+  const PreviewPage();
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _PreviewPageState createState() => _PreviewPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
-  static final _buttonKey = GlobalKey();
-  static final _textKey = GlobalKey();
-  static final _text1Key = GlobalKey();
-  static final _text2Key = GlobalKey();
+class _PreviewPageState extends State<PreviewPage> {
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance?.scheduleTask(
+      () {
+        Tutorial().show(
+          context,
+          children: [
+            TutorialEntry.fromKey(_fontSelectKey),
+            TutorialEntry.single(
+              RRect.fromRectAndRadius(
+                getBasicRect(_textKey).deflate(60),
+                const Radius.circular(20),
+              ),
+            ),
+            TutorialEntry.multipleKeys([
+              _undoKey,
+              _redoKey,
+            ]),
+          ],
+          backgroundColor: Theme.of(context).primaryColor,
+          backgroundMaxOpacity: 0.9,
+          onPressedBehavior: OnPressedBehavior.none,
+          dialogBuilder: (context, index, next, __) {
+            final value = tutorialValues[index];
 
-  int _counter = 0;
+            return TutorialDialog(
+              value: value,
+              next: next,
+            );
+          },
+        );
+      },
+      Priority.animation,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: false,
+        title: Row(
+          children: [
+            UndoButton(key: _undoKey),
+            const SizedBox(width: 16),
+            RedoButton(key: _redoKey),
+          ],
+        ),
+        actions: [
+          DoneButton(
+            onPressed: () {
+              Tutorial().show(
+                context,
+                children: [
+                  TutorialEntry.fromKey(_fontSelectKey),
+                  TutorialEntry.single(
+                    RRect.fromRectAndRadius(
+                      getBasicRect(_textKey).deflate(60),
+                      const Radius.circular(20),
+                    ),
+                  ),
+                  TutorialEntry.multipleKeys([
+                    _undoKey,
+                    _redoKey,
+                  ]),
+                ],
+                backgroundColor: Theme.of(context).primaryColor,
+                backgroundMaxOpacity: 0.9,
+                onPressedBehavior: OnPressedBehavior.none,
+                dialogBuilder: (context, index, next, __) {
+                  final value = tutorialValues[index];
+
+                  return TutorialDialog(
+                    value: value,
+                    next: next,
+                  );
+                },
+              );
+            },
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: TextToStyle(
+              key: _textKey,
+            ),
+          ),
+          SelectFontWidget(
+            key: _fontSelectKey,
+          ),
+          const SizedBox(height: 16),
+          const FontStyleCard(),
+          const SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+}
+
+class TutorialDialog extends StatefulWidget {
+  const TutorialDialog({
+    Key? key,
+    required this.value,
+    required this.next,
+  }) : super(key: key);
+
+  final TutorialEntryValue value;
+  final VoidCallback next;
+
+  @override
+  _TutorialDialogState createState() => _TutorialDialogState();
+}
+
+class _TutorialDialogState extends State<TutorialDialog>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _opacityAnimation;
 
   @override
   void initState() {
     super.initState();
+
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
@@ -64,136 +209,55 @@ class _MyHomePageState extends State<MyHomePage>
         curve: Curves.ease,
       ),
     );
-
-    SchedulerBinding.instance?.scheduleTask(
-      () {
-        final tutorialEntries = [
-          ExampleTutorialEntry(
-            [
-              RRect.fromRectAndRadius(
-                getBasicRect(_buttonKey),
-                const Radius.circular(28),
-              )
-            ],
-            'Press the button to increase counter',
-            Alignment.center,
-          ),
-          ExampleTutorialEntry(
-            [getBasicRRect(_textKey)],
-            'Counter will be increased here',
-            Alignment.bottomCenter,
-          ),
-          ExampleTutorialEntry(
-            [
-              getBasicRRect(_text1Key),
-              RRect.fromRectAndCorners(
-                getBasicRect(_text2Key).inflate(10),
-              ),
-            ],
-            'Highlights 2 texts',
-            Alignment.bottomCenter,
-          ),
-        ];
-        Tutorial().show<ExampleTutorialEntry>(
-          context,
-          children: tutorialEntries,
-          onPressedBehavior: OnPressedBehavior.next,
-          backgroundColor: Colors.blue,
-          backgroundMaxOpacity: 0.8,
-          prepareNext: () async {
-            await _animationController.reverse();
-            _animationController.forward();
-          },
-          dialogBuilder: (context, index, next, previous) {
-            final entry = tutorialEntries[index];
-            _animationController.forward();
-            return Align(
-              alignment: entry.alignment,
-              child: SafeArea(
-                child: Material(
-                  color: Colors.transparent,
-                  child: AnimatedBuilder(
-                    animation: _opacityAnimation,
-                    builder: (context, child) {
-                      return Opacity(
-                        opacity: _opacityAnimation.value,
-                        child: child,
-                      );
-                    },
-                    child: Text(
-                      entry.text,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
-        );
-      },
-      Priority.animation,
-    );
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+    _animationController.forward();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              key: _textKey,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                const SizedBox(
-                  width: double.infinity,
-                  child: Text(
-                    'You have pushed the button this many times:',
-                    textAlign: TextAlign.center,
-                  ),
+    return Material(
+      color: Colors.transparent,
+      child: Align(
+        alignment: widget.value.alignment,
+        child: AnimatedBuilder(
+          animation: _opacityAnimation,
+          builder: (context, child) {
+            return Opacity(
+              opacity: _opacityAnimation.value,
+              child: child,
+            );
+          },
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: _padding,
+                child: Text(
+                  widget.value.text,
+                  style: _textStyle,
+                  textAlign: TextAlign.center,
                 ),
-                Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.headline4,
+              ),
+              const SizedBox(height: 12),
+              OutlinedButton(
+                onPressed: () async {
+                  await _animationController.reverse();
+                  widget.next();
+                  await _animationController.forward();
+                },
+                child: const Text(
+                  'Next tip',
                 ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  'Text 1',
-                  key: _text1Key,
-                ),
-                Text(
-                  'Text 2',
-                  key: _text2Key,
-                ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        key: _buttonKey,
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
     );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 }
