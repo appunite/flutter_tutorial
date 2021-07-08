@@ -53,6 +53,7 @@ extension Math on RRect {
   }
 }
 
+/// An interpolation between two rrects, similar to [RectTween].
 class RRectTween extends Tween<RRect> {
   RRectTween({
     required RRect begin,

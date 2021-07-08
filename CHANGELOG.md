@@ -1,3 +1,7 @@
+# 1.0.1
+
+* add documentation to rrect tween
+
 # 1.0.0
 
 * add factory constructors for tutorial entry: single, fromKey, fromKeys
