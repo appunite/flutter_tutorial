@@ -49,6 +49,10 @@ const tutorialValues = [
     text: 'Undo and redo your changes',
     alignment: Alignment(0.0, -0.7),
   ),
+  TutorialEntryValue(
+    text: 'Tap text to edit',
+    alignment: Alignment(0.0, 0.5),
+  ),
 ];
 
 void main() {
@@ -93,6 +97,12 @@ class _PreviewPageState extends State<PreviewPage> {
               _undoKey,
               _redoKey,
             ]),
+            TutorialEntry.single(
+              RRect.fromRectAndRadius(
+                getBasicRect(_textKey).deflate(60),
+                const Radius.circular(20),
+              ),
+            ),
           ],
           backgroundColor: Theme.of(context).primaryColor,
           backgroundMaxOpacity: 0.9,
