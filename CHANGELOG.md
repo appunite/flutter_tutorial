@@ -1,3 +1,9 @@
+# 1.1.0
+
+* fix issue with animating higher number of higlight items into lower number
+* add golden tests to main example
+* add example with multiple tutorials on a grid view
+
 # 1.0.2
 
 * add documentation to rrect tween
