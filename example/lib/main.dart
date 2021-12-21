@@ -49,10 +49,6 @@ const tutorialValues = [
     text: 'Undo and redo your changes',
     alignment: Alignment(0.0, -0.7),
   ),
-  TutorialEntryValue(
-    text: 'Tap text to edit',
-    alignment: Alignment(0.0, 0.5),
-  ),
 ];
 
 void main() {
@@ -78,45 +74,41 @@ class PreviewPage extends StatefulWidget {
 }
 
 class _PreviewPageState extends State<PreviewPage> {
+  void startTutorial() {
+    Tutorial().show(
+      context,
+      children: [
+        TutorialEntry.fromKey(_fontSelectKey),
+        TutorialEntry.single(
+          RRect.fromRectAndRadius(
+            getBasicRect(_textKey).deflate(60),
+            const Radius.circular(20),
+          ),
+        ),
+        TutorialEntry.multipleKeys([
+          _undoKey,
+          _redoKey,
+        ]),
+      ],
+      backgroundColor: Theme.of(context).primaryColor,
+      backgroundMaxOpacity: 0.9,
+      onPressedBehavior: OnPressedBehavior.none,
+      dialogBuilder: (context, index, next, __) {
+        final value = tutorialValues[index];
+
+        return TutorialDialog(
+          value: value,
+          next: next,
+        );
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
     SchedulerBinding.instance?.scheduleTask(
-      () {
-        Tutorial().show(
-          context,
-          children: [
-            TutorialEntry.fromKey(_fontSelectKey),
-            TutorialEntry.single(
-              RRect.fromRectAndRadius(
-                getBasicRect(_textKey).deflate(60),
-                const Radius.circular(20),
-              ),
-            ),
-            TutorialEntry.multipleKeys([
-              _undoKey,
-              _redoKey,
-            ]),
-            TutorialEntry.single(
-              RRect.fromRectAndRadius(
-                getBasicRect(_textKey).deflate(60),
-                const Radius.circular(20),
-              ),
-            ),
-          ],
-          backgroundColor: Theme.of(context).primaryColor,
-          backgroundMaxOpacity: 0.9,
-          onPressedBehavior: OnPressedBehavior.none,
-          dialogBuilder: (context, index, next, __) {
-            final value = tutorialValues[index];
-
-            return TutorialDialog(
-              value: value,
-              next: next,
-            );
-          },
-        );
-      },
+      startTutorial,
       Priority.animation,
     );
   }
@@ -134,37 +126,7 @@ class _PreviewPageState extends State<PreviewPage> {
           ],
         ),
         actions: [
-          DoneButton(
-            onPressed: () {
-              Tutorial().show(
-                context,
-                children: [
-                  TutorialEntry.fromKey(_fontSelectKey),
-                  TutorialEntry.single(
-                    RRect.fromRectAndRadius(
-                      getBasicRect(_textKey).deflate(60),
-                      const Radius.circular(20),
-                    ),
-                  ),
-                  TutorialEntry.multipleKeys([
-                    _undoKey,
-                    _redoKey,
-                  ]),
-                ],
-                backgroundColor: Theme.of(context).primaryColor,
-                backgroundMaxOpacity: 0.9,
-                onPressedBehavior: OnPressedBehavior.none,
-                dialogBuilder: (context, index, next, __) {
-                  final value = tutorialValues[index];
-
-                  return TutorialDialog(
-                    value: value,
-                    next: next,
-                  );
-                },
-              );
-            },
-          ),
+          DoneButton(onPressed: startTutorial),
         ],
       ),
       body: Column(
