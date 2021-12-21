@@ -53,7 +53,8 @@ class TutorialWidget<T extends TutorialEntry> extends StatefulWidget {
   State<StatefulWidget> createState() => TutorialWidgetState();
 }
 
-class TutorialWidgetState extends State<TutorialWidget> with TickerProviderStateMixin {
+class TutorialWidgetState extends State<TutorialWidget>
+    with TickerProviderStateMixin {
   late ValueNotifier<int> _indexController;
   late AnimationController _opacityController;
   late Animation<double> _opacityAnimation;
@@ -107,7 +108,8 @@ class TutorialWidgetState extends State<TutorialWidget> with TickerProviderState
         );
     final children = widget.children;
     final rrectList = children[index].rrectList;
-    final newRRectList = children[children.length > 1 ? index + 1 : index].rrectList;
+    final newRRectList =
+        children[children.length > 1 ? index + 1 : index].rrectList;
 
     // No more items to animate
     if (index == children.length - 1) {
@@ -164,7 +166,9 @@ class TutorialWidgetState extends State<TutorialWidget> with TickerProviderState
                 builder: (context, child) {
                   return ClipPath(
                     clipper: TutorialTargetClipper(
-                      _highlightAnimations.map((animation) => animation.value).toList(),
+                      _highlightAnimations
+                          .map((animation) => animation.value)
+                          .toList(),
                     ),
                     child: child,
                   );
@@ -215,7 +219,8 @@ class TutorialWidgetState extends State<TutorialWidget> with TickerProviderState
       widget.close();
     } else {
       _indexController.value++;
-      _highlightAnimations = _getCurrentHighlightAnimation(_indexController.value - 1);
+      _highlightAnimations =
+          _getCurrentHighlightAnimation(_indexController.value - 1);
       _highlightController.reset();
       _highlightController.forward();
     }
@@ -226,7 +231,8 @@ class TutorialWidgetState extends State<TutorialWidget> with TickerProviderState
     if (_highlightController.isAnimating || _highlightController.isCompleted) {
       _highlightController.reverse();
     } else {
-      _highlightAnimations = _getCurrentHighlightAnimation(_indexController.value);
+      _highlightAnimations =
+          _getCurrentHighlightAnimation(_indexController.value);
       _highlightController.reverse(from: 1);
     }
   }
