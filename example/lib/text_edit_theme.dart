@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-ThemeData get mainTheme => ThemeData(
+ThemeData get textEditTheme => ThemeData(
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
@@ -8,7 +8,9 @@ ThemeData get mainTheme => ThemeData(
         ),
         elevation: 0,
       ),
-      accentColor: const Color(0xFF35b9aa),
+      colorScheme: const ColorScheme.light(
+        secondary: Color(0xFF35b9aa),
+      ),
       primaryColor: const Color(0xFF166259),
       scaffoldBackgroundColor: Colors.white,
       textButtonTheme: TextButtonThemeData(

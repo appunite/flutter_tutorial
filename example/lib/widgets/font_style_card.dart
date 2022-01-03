@@ -114,14 +114,14 @@ class StyleButton extends StatelessWidget {
           color: isSelected ? Colors.white : const Color(0xFFf3f3f3),
           border: Border.all(
             color: isSelected
-                ? Theme.of(context).accentColor
+                ? Theme.of(context).colorScheme.secondary
                 : const Color(0xFFf3f3f3),
             width: 2,
           ),
         ),
         child: Icon(
           icon,
-          color: isSelected ? Theme.of(context).accentColor : null,
+          color: isSelected ? Theme.of(context).colorScheme.secondary : null,
         ),
       ),
     );

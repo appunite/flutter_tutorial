@@ -110,15 +110,25 @@ class TutorialWidgetState extends State<TutorialWidget>
     final rrectList = children[index].rrectList;
     final newRRectList =
         children[children.length > 1 ? index + 1 : index].rrectList;
-    for (int i = 0; i < rrectList.length; i++) {}
-    if (children.length - 1 == index)
+
+    // No more items to animate
+    if (index == children.length - 1) {
       return rrectList
           .map((rrect) => RRectTween(
                 begin: rrect,
                 end: rrect,
               ).animate(animation))
           .toList();
+    }
+
     if (rrectList.length > newRRectList.length) {
+      return List.generate(
+        rrectList.length,
+        (i) => RRectTween(
+          begin: rrectList[i],
+          end: i >= newRRectList.length ? newRRectList.first : newRRectList[i],
+        ).animate(animation),
+      );
     } else if (rrectList.length < newRRectList.length) {
       return List.generate(
         newRRectList.length,
@@ -129,20 +139,13 @@ class TutorialWidgetState extends State<TutorialWidget>
       );
     } else {
       return List.generate(
-        newRRectList.length,
+        rrectList.length,
         (i) => RRectTween(
           begin: rrectList[i],
-          end: i >= newRRectList.length ? newRRectList.first : newRRectList[i],
+          end: newRRectList[i],
         ).animate(animation),
       );
     }
-    return List.generate(
-      rrectList.length,
-      (i) => RRectTween(
-        begin: rrectList[i],
-        end: newRRectList[i],
-      ).animate(animation),
-    );
   }
 
   @override
