@@ -1,25 +1,25 @@
-import 'package:example/main.dart';
-import 'package:example/main_theme.dart';
+import 'package:example/pages/text_edit_page.dart';
+import 'package:example/text_edit_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
 WidgetWrapper mainThemeWrapper() => materialAppWrapper(
-      theme: mainTheme,
+      theme: textEditTheme,
       platform: TargetPlatform.iOS,
     );
 
 void main() {
   const surfaceSize = Size(428.0, 926.0 - 47.0 - 38.0);
 
-  testGoldens('Main Page Step 1', (tester) async {
+  testGoldens('Text Edit Page Step 1', (tester) async {
     await tester.pumpWidgetBuilder(
-      const PreviewPage(),
+      const TextEditPage(),
       wrapper: mainThemeWrapper(),
       surfaceSize: surfaceSize,
     );
 
-    await screenMatchesGolden(tester, 'main_step1');
+    await screenMatchesGolden(tester, 'text_edit_page_step_1');
   });
 
   Future<void> pressNextTip(WidgetTester tester) async {
@@ -28,9 +28,9 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testGoldens('Main Page Step 2', (tester) async {
+  testGoldens('Text Edit Page Step 2', (tester) async {
     await tester.pumpWidgetBuilder(
-      const PreviewPage(),
+      const TextEditPage(),
       wrapper: mainThemeWrapper(),
       surfaceSize: surfaceSize,
     );
@@ -39,12 +39,12 @@ void main() {
 
     await pressNextTip(tester);
 
-    await screenMatchesGolden(tester, 'main_step2');
+    await screenMatchesGolden(tester, 'text_edit_page_step_2');
   });
 
-  testGoldens('Main Page Step 3', (tester) async {
+  testGoldens('Text Edit Page Step 3', (tester) async {
     await tester.pumpWidgetBuilder(
-      const PreviewPage(),
+      const TextEditPage(),
       wrapper: mainThemeWrapper(),
       surfaceSize: surfaceSize,
     );
@@ -54,12 +54,12 @@ void main() {
     await pressNextTip(tester);
     await pressNextTip(tester);
 
-    await screenMatchesGolden(tester, 'main_step3');
+    await screenMatchesGolden(tester, 'text_edit_page_step_3');
   });
 
-  testGoldens('Main Page', (tester) async {
+  testGoldens('Text Edit Page', (tester) async {
     await tester.pumpWidgetBuilder(
-      const PreviewPage(),
+      const TextEditPage(),
       wrapper: mainThemeWrapper(),
       surfaceSize: surfaceSize,
     );
@@ -70,6 +70,6 @@ void main() {
     await pressNextTip(tester);
     await pressNextTip(tester);
 
-    await screenMatchesGolden(tester, 'main_page');
+    await screenMatchesGolden(tester, 'text_edit_page');
   });
 }

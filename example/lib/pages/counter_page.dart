@@ -14,34 +14,16 @@ class ExampleTutorialEntry extends TutorialEntry {
   final Alignment alignment;
 }
 
-void main() {
-  runApp(MyApp());
-}
+class CounterPage extends StatefulWidget {
+  const CounterPage({Key? key}) : super(key: key);
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  static Route route() => MaterialPageRoute(builder: (_) => const CounterPage());
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _CounterPageState createState() => _CounterPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
+class _CounterPageState extends State<CounterPage> with SingleTickerProviderStateMixin {
   static final _buttonKey = GlobalKey();
   static final _textKey = GlobalKey();
   static final _text1Key = GlobalKey();
@@ -148,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('Counter example'),
       ),
       body: Center(
         child: Column(

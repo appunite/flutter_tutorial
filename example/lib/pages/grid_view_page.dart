@@ -96,8 +96,7 @@ final _tutorials = [
         context,
         children: [
           TutorialEntry.multipleKeys([_keys[8], _keys[11], _keys[12]]),
-          TutorialEntry.multipleKeys(
-              [_keys[12], _keys[14], _keys[4], _keys[5], _keys[4], _keys[15]]),
+          TutorialEntry.multipleKeys([_keys[12], _keys[14], _keys[4], _keys[5], _keys[4], _keys[15]]),
         ],
       ),
   // 12 - 3 to 6 to 2
@@ -105,8 +104,7 @@ final _tutorials = [
         context,
         children: [
           TutorialEntry.multipleKeys([_keys[8], _keys[11], _keys[12]]),
-          TutorialEntry.multipleKeys(
-              [_keys[12], _keys[14], _keys[4], _keys[5], _keys[4], _keys[15]]),
+          TutorialEntry.multipleKeys([_keys[12], _keys[14], _keys[4], _keys[5], _keys[4], _keys[15]]),
           TutorialEntry.multipleKeys([_keys[3], _keys[5]]),
         ],
       ),
@@ -114,21 +112,11 @@ final _tutorials = [
   // 14
   // 15
 ];
-void main() {
-  runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: AllTutorialCasesPage(),
-    );
-  }
-}
+class GridViewPage extends StatelessWidget {
+  const GridViewPage();
 
-class AllTutorialCasesPage extends StatelessWidget {
-  const AllTutorialCasesPage();
+  static Route route() => MaterialPageRoute(builder: (_) => const GridViewPage());
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +129,7 @@ class AllTutorialCasesPage extends StatelessWidget {
           crossAxisSpacing: 8,
           children: [
             for (int i = 0; i < _keysLength; i++) ...[
-              CaseWidget(
+              GridItemWidget(
                 key: _keys[i],
                 index: i,
                 color: Colors.accents[i],
@@ -155,8 +143,8 @@ class AllTutorialCasesPage extends StatelessWidget {
   }
 }
 
-class CaseWidget extends StatelessWidget {
-  const CaseWidget({
+class GridItemWidget extends StatelessWidget {
+  const GridItemWidget({
     Key? key,
     required this.index,
     required this.color,
