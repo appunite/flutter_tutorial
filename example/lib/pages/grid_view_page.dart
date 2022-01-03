@@ -96,7 +96,8 @@ final _tutorials = [
         context,
         children: [
           TutorialEntry.multipleKeys([_keys[8], _keys[11], _keys[12]]),
-          TutorialEntry.multipleKeys([_keys[12], _keys[14], _keys[4], _keys[5], _keys[4], _keys[15]]),
+          TutorialEntry.multipleKeys(
+              [_keys[12], _keys[14], _keys[4], _keys[5], _keys[4], _keys[15]]),
         ],
       ),
   // 12 - 3 to 6 to 2
@@ -104,7 +105,8 @@ final _tutorials = [
         context,
         children: [
           TutorialEntry.multipleKeys([_keys[8], _keys[11], _keys[12]]),
-          TutorialEntry.multipleKeys([_keys[12], _keys[14], _keys[4], _keys[5], _keys[4], _keys[15]]),
+          TutorialEntry.multipleKeys(
+              [_keys[12], _keys[14], _keys[4], _keys[5], _keys[4], _keys[15]]),
           TutorialEntry.multipleKeys([_keys[3], _keys[5]]),
         ],
       ),
@@ -116,7 +118,8 @@ final _tutorials = [
 class GridViewPage extends StatelessWidget {
   const GridViewPage();
 
-  static Route route() => MaterialPageRoute(builder: (_) => const GridViewPage());
+  static Route route() =>
+      MaterialPageRoute(builder: (_) => const GridViewPage());
 
   @override
   Widget build(BuildContext context) {

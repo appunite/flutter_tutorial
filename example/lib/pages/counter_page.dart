@@ -17,13 +17,15 @@ class ExampleTutorialEntry extends TutorialEntry {
 class CounterPage extends StatefulWidget {
   const CounterPage({Key? key}) : super(key: key);
 
-  static Route route() => MaterialPageRoute(builder: (_) => const CounterPage());
+  static Route route() =>
+      MaterialPageRoute(builder: (_) => const CounterPage());
 
   @override
   _CounterPageState createState() => _CounterPageState();
 }
 
-class _CounterPageState extends State<CounterPage> with SingleTickerProviderStateMixin {
+class _CounterPageState extends State<CounterPage>
+    with SingleTickerProviderStateMixin {
   static final _buttonKey = GlobalKey();
   static final _textKey = GlobalKey();
   static final _text1Key = GlobalKey();

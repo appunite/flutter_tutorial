@@ -157,7 +157,8 @@ class TutorialDialog extends StatefulWidget {
   _TutorialDialogState createState() => _TutorialDialogState();
 }
 
-class _TutorialDialogState extends State<TutorialDialog> with SingleTickerProviderStateMixin {
+class _TutorialDialogState extends State<TutorialDialog>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _opacityAnimation;
 
