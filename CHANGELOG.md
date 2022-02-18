@@ -1,3 +1,7 @@
+# 1.1.1
+
+* bump flutter and packages version
+
 # 1.1.0
 
 * fix issue with animating higher number of higlight items into lower number

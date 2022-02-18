@@ -1,6 +1,6 @@
 name: flutter_tutorial
 description: Tutorial API to display overlay and highlights certain items.
-version: 1.1.0
+version: 1.1.1
 homepage: https://github.com/appunite/flutter_tutorial
 
 environment:
